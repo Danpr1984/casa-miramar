@@ -1,17 +1,415 @@
 ---
+import { Image } from "astro:assets";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+import Carousel from "../components/Carousel.astro";
+import Icon from "../components/Icon.astro";
+import imgHero from "../assets/images/hero-miramar.jpg";
 
+/* =========================================================
+   CONTENIDO EDITABLE — cambia aquí los textos y números.
+   No necesitas tocar el HTML de abajo para actualizar el sitio.
+   ========================================================= */
+const content = {
+  hero: {
+    title: "Tu lugar frente al mar",
+    subtitle: "León, Nicaragua",
+    cta: "Ver disponibilidad",
+    ctaSecondary: "Conoce la casa",
+  },
+  intro: {
+    stats: [
+      { value: "15", label: "Huéspedes" },
+      { value: "5", label: "Habitaciones" },
+      { value: "5", label: "Baños" },
+      { value: "Piscina", label: "Iluminada" },
+    ],
+  },
+  split: {
+    label: "La Casa",
+    heading: "Un refugio diseñado para desconectar",
+    text: "Ubicada en un pequeño pueblo de pescadores, Casa Miramar ofrece la privacidad de una playa inmensa, poco frecuentada por turistas. Espacios abiertos que conectan interior y exterior, terrazas con hamacas y una piscina iluminada que hacen de esta casa un refugio para grupos grandes que buscan calma frente al mar.",
+    images: [
+      "/images/miramar/casa-1.jpg",
+      "/images/miramar/casa-2.jpg",
+      "/images/miramar/casa-3.jpg",
+      "/images/miramar/casa-4.jpg",
+      "/images/miramar/casa-5.jpg",
+      "/images/miramar/casa-6.jpg",
+    ],
+  },
+  rooms: [
+    {
+      title: "Habitaciones",
+      alt: "Habitación Casa Miramar",
+      text: "5 habitaciones amplias y luminosas, listas para hasta 15 huéspedes con toda la comodidad para descansar.",
+      checklist: ["Aire acondicionado", "Baño privado", "Ventilador de techo"],
+      images: [
+        "/images/miramar/hab-1.jpg",
+        "/images/miramar/hab-2.jpg",
+        "/images/miramar/hab-3.jpg",
+        "/images/miramar/hab-4.jpg",
+        "/images/miramar/hab-5.jpg",
+        "/images/miramar/hab-6.jpg",
+        "/images/miramar/hab-7.jpg",
+        "/images/miramar/hab-8.jpg",
+        "/images/miramar/hab-9.jpg",
+        "/images/miramar/hab-10.jpg",
+        "/images/miramar/hab-11.jpg",
+      ],
+    },
+    {
+      title: "Espacios Comunes",
+      alt: "Espacios comunes Casa Miramar",
+      text: "Cocina totalmente equipada, sala de estar y espacios abiertos pensados para compartir en grupo.",
+      checklist: ["Cocina equipada", "Asador", "Terrazas con hamacas"],
+      images: [
+        "/images/miramar/comun-1.jpg",
+        "/images/miramar/comun-4.jpg",
+        "/images/miramar/comun-5.jpg",
+        "/images/miramar/comun-6.jpg",
+        "/images/miramar/comun-7.jpg",
+        "/images/miramar/comun-2.jpg",
+        "/images/miramar/comun-3.jpg",
+      ],
+    },
+    {
+      title: "Jardín y Piscina",
+      alt: "Jardín y piscina Casa Miramar",
+      text: "Piscina iluminada, jardín tropical y acceso directo a la playa: el corazón social de la casa.",
+      checklist: ["Piscina iluminada", "Acceso directo a la playa", "Casa cercada, pet-friendly"],
+      images: [
+        "/images/miramar/piscina-1.jpg",
+        "/images/miramar/piscina-2.jpg",
+      ],
+    },
+  ],
+  amenities: {
+    label: "Amenidades",
+    heading: "Casa Miramar incluye",
+    items: [
+      { icon: "waves", title: "Piscina iluminada", desc: "Para disfrutar de día y de noche." },
+      { icon: "wifi", title: "Wifi", desc: "Conexión disponible en toda la casa." },
+      { icon: "snowflake", title: "Aire acondicionado", desc: "En habitaciones y comedor." },
+      { icon: "chef-hat", title: "Cocina equipada", desc: "Todo lo necesario para cocinar." },
+      { icon: "car", title: "Parqueo para 7 vehículos", desc: "Espacio amplio y seguro." },
+      { icon: "palmtree", title: "Acceso directo a la playa", desc: "Frente al mar, sin intermediarios." },
+      { icon: "armchair", title: "Terrazas con hamacas", desc: "Vista total al océano." },
+      { icon: "paw-print", title: "Casa cercada, pet-friendly", desc: "Segura para niños y mascotas." },
+    ],
+  },
+  experience: {
+    label: "Experiencia",
+    heading: "Vive la costa a tu manera",
+    photos: [
+      { src: "/images/miramar/exp-playa.jpg", caption: "Playa" },
+      { src: "/images/miramar/exp-naturaleza.jpg", caption: "Naturaleza" },
+      { src: "/images/miramar/exp-atardecer.jpg", caption: "Atardeceres" },
+      { src: "/images/miramar/exp-zona.jpg", caption: "La zona" },
+    ],
+  },
+  location: {
+    label: "Ubicación",
+    heading: "Cerca de todo lo importante",
+    pills: [
+      { icon: "palmtree", label: "Playa — [pendiente confirmar]" },
+      { icon: "utensils", label: "Restaurantes — [pendiente confirmar]" },
+      { icon: "shopping-cart", label: "Supermercado — [pendiente confirmar]" },
+      { icon: "building-2", label: "Centro de la ciudad — [pendiente confirmar]" },
+      { icon: "plane", label: "Aeropuerto — [pendiente confirmar]" },
+    ],
+  },
+  rules: {
+    label: "Reglas de la Casa",
+    heading: "Para una buena estadía",
+    items: [
+      "Check-in / Check-out: [pendiente confirmar hora exacta]",
+      "Se permite fumar solo en áreas designadas al aire libre",
+      "Mascotas bienvenidas",
+      "Máximo 15 huéspedes",
+      "Estadía mínima: 1 noche",
+    ],
+    contactText: "¿Dudas antes de reservar? Escríbenos por WhatsApp.",
+    whatsappNumber: "+505 0000 0000",
+    whatsappLink: "https://wa.me/50500000000",
+  },
+  ctaSection: {
+    heading: "La escapada familiar que estabas buscando",
+    reserveButton: "Reservar",
+    whatsappButton: "WhatsApp",
+  },
+};
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout
+  title="Casa Miramar — Alquiler vacacional frente al mar"
+  description="Casa Miramar: alquiler vacacional frente al mar con piscina privada, 8 huéspedes y acceso directo a la playa."
+  lang="es"
+>
+  <Nav lang="es" />
+
+  <!-- HERO -->
+  <section class="hero">
+    <Image src={imgHero} alt="Casa Miramar" width={1920} height={1080} loading="eager" class="hero-img" />
+    <div class="hero-overlay"></div>
+    <div class="hero-content container">
+      <h1>{content.hero.title}</h1>
+      <div class="hero-buttons">
+        <a href="#reservar" class="btn btn-white">{content.hero.cta}</a>
+        <a href="#casa" class="btn btn-outline">{content.hero.ctaSecondary}</a>
+      </div>
+      <span class="hero-location">{content.hero.subtitle}</span>
+    </div>
+  </section>
+
+  <!-- INTRO -->
+  <section class="intro" id="casa">
+    <div class="intro-stats container">
+      {content.intro.stats.map((s) => (
+        <div class="stat">
+          <span class="stat-value">{s.value}</span>
+          <span class="stat-label">{s.label}</span>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- SPLIT -->
+  <section class="split">
+    <div class="container split-inner">
+      <div class="split-text">
+        <span class="section-label">{content.split.label}</span>
+        <h2>{content.split.heading}</h2>
+        <p>{content.split.text}</p>
+      </div>
+      <div class="split-carousel">
+        <Carousel images={content.split.images} id="carousel-house" alt="Casa Miramar" aspectRatio="4/3" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ROOMS -->
+  <section class="rooms" id="habitaciones">
+    <div class="container">
+      <span class="section-label">Habitaciones</span>
+      <h2 class="rooms-heading">Espacios para cada momento</h2>
+      <div class="rooms-grid">
+        {content.rooms.map((room, i) => (
+          <div class="room-card">
+            <Carousel images={room.images} id={`carousel-room-${i}`} alt={room.alt} aspectRatio="4/3" />
+            <div class="room-body">
+              <h3>{room.title}</h3>
+              <p class="room-text">{room.text}</p>
+              <ul class="room-checklist">
+                {room.checklist.map((item) => (
+                  <li><Icon name="check" size={15} />{item}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div class="rooms-cta">
+        <a href="#reservar" class="btn btn-primary">Ver disponibilidad</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- AMENITIES -->
+  <section class="amenities" id="amenidades">
+    <div class="container">
+      <span class="section-label">{content.amenities.label}</span>
+      <h2 class="amenities-heading">{content.amenities.heading}</h2>
+      <div class="amenities-grid">
+        {content.amenities.items.map((item) => (
+          <div class="amenity">
+            <span class="amenity-icon"><Icon name={item.icon} size={26} /></span>
+            <h3>{item.title}</h3>
+            <p>{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section class="experience container">
+    <span class="section-label">{content.experience.label}</span>
+    <h2 class="experience-heading">{content.experience.heading}</h2>
+    <div class="experience-grid">
+      {content.experience.photos.map((p) => (
+        <div class="experience-item">
+          <img src={p.src} alt={p.caption} loading="lazy" />
+          <span>{p.caption}</span>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- LOCATION -->
+  <section class="location" id="ubicacion">
+    <div class="container">
+      <span class="section-label">{content.location.label}</span>
+      <h2 class="location-heading">{content.location.heading}</h2>
+      <div class="location-pills">
+        {content.location.pills.map((pill) => (
+          <span class="pill"><Icon name={pill.icon} size={18} />{pill.label}</span>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- HOUSE RULES -->
+  <section class="rules container">
+    <span class="section-label">{content.rules.label}</span>
+    <h2 class="rules-heading">{content.rules.heading}</h2>
+    <ul class="rules-list">
+      {content.rules.items.map((rule) => (
+        <li>{rule}</li>
+      ))}
+    </ul>
+    <p class="rules-contact">
+      {content.rules.contactText}
+      <a href={content.rules.whatsappLink} target="_blank" rel="noopener" class="rules-whatsapp">
+        {content.rules.whatsappNumber}
+      </a>
+    </p>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section" id="reservar">
+    <div class="cta-content container">
+      <h2>{content.ctaSection.heading}</h2>
+      <div class="cta-buttons">
+        <a href={content.rules.whatsappLink} target="_blank" rel="noopener" class="btn btn-white">
+          {content.ctaSection.reserveButton}
+        </a>
+        <a href={content.rules.whatsappLink} target="_blank" rel="noopener" class="btn btn-outline">
+          {content.ctaSection.whatsappButton}
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <Footer lang="es" />
+</BaseLayout>
+
+<style>
+  /* HERO */
+  .hero { position: relative; height: 78svh; min-height: 460px; max-height: 720px; overflow: hidden; }
+  .hero-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .hero-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(20,20,18,0.45) 0%, rgba(20,20,18,0.35) 45%, rgba(20,20,18,0.65) 100%);
+  }
+  .hero-content {
+    position: relative; z-index: 2;
+    height: 100%;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; color: var(--white);
+  }
+  .hero-content h1 { font-size: clamp(2.6rem, 6vw, 4.6rem); margin: 0 0 26px; }
+  .hero-buttons { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+  .hero-location {
+    position: absolute;
+    left: 50%;
+    bottom: 44px;
+    transform: translateX(-50%);
+    font-family: 'Work Sans', sans-serif;
+    font-size: 0.85rem; font-weight: 500;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--white);
+    opacity: 0.9;
+  }
+
+  /* INTRO */
+  .intro { padding: 72px 0; background: var(--accent-dk); }
+  .intro-stats { display: flex; justify-content: center; flex-wrap: wrap; }
+  .stat {
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+    padding: 0 56px; border-left: 1px solid rgba(255,255,255,0.25);
+  }
+  .stat:first-child { border-left: none; }
+  .stat-value { font-family: 'Fraunces', serif; font-size: 3rem; font-weight: 600; color: var(--white); }
+  .stat-label { font-size: 0.9rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--bg-sand); opacity: 0.85; }
+
+  /* SPLIT */
+  .split { background: var(--white); padding: 96px 0; }
+  .split-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+  .split-text h2 { font-size: 2.2rem; margin: 10px 0 18px; }
+  .split-text p { color: var(--muted); }
+  .split-carousel { border-radius: 14px; overflow: hidden; }
+
+  /* ROOMS */
+  .rooms { padding: 96px 0; text-align: center; background: var(--white); }
+  .rooms-heading { font-size: 2.2rem; margin: 10px 0 44px; }
+  .rooms-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; text-align: left; }
+  .rooms-cta { margin-top: 44px; }
+  .room-card { border: 1px solid var(--border); border-radius: 14px; overflow: hidden; background: var(--bg-card); }
+  .room-body { padding: 18px 20px 22px; }
+  .room-body h3 { font-size: 1.35rem; margin-bottom: 8px; }
+  .room-text { color: var(--muted); font-size: 0.92rem; line-height: 1.5; margin-bottom: 14px; }
+  .room-checklist { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .room-checklist li { display: flex; align-items: center; gap: 8px; font-size: 0.88rem; color: var(--text); }
+  .room-checklist li :global(.icon) { color: var(--accent-dk); flex-shrink: 0; }
+
+  /* AMENITIES */
+  .amenities { background: var(--bg-sand); padding: 96px 32px; text-align: center; }
+  .amenities-heading { font-size: 2.2rem; margin: 10px 0 48px; }
+  .amenities-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; text-align: left; }
+  .amenity-icon { display: block; margin-bottom: 12px; color: var(--accent-dk); }
+  .amenity h3 { font-size: 1.15rem; font-weight: 500; margin-bottom: 6px; font-family: 'Work Sans', sans-serif; }
+  .amenity p { color: var(--muted); font-size: 0.92rem; }
+
+  /* EXPERIENCE */
+  .experience { padding: 96px 32px; text-align: center; }
+  .experience-heading { font-size: 2.2rem; margin: 10px 0 44px; }
+  .experience-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .experience-item { position: relative; border-radius: 14px; overflow: hidden; aspect-ratio: 4/3; }
+  .experience-item img { width: 100%; height: 100%; object-fit: cover; }
+  .experience-item span {
+    position: absolute; bottom: 14px; left: 16px; color: var(--white);
+    font-family: 'Fraunces', serif; font-size: 1.3rem;
+    text-shadow: 0 1px 6px rgba(0,0,0,0.5);
+  }
+
+  /* LOCATION */
+  .location { background: var(--bg-sand); padding: 88px 32px; text-align: center; }
+  .location-heading { font-size: 2.2rem; margin: 10px 0 36px; }
+  .location-pills { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+  .pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    border: 1px solid var(--border); background: var(--bg-card);
+    padding: 10px 20px; border-radius: 999px; font-size: 0.88rem; color: var(--text);
+  }
+  .pill :global(.icon) { color: var(--accent-dk); }
+
+  /* RULES */
+  .rules { padding: 96px 32px; max-width: 780px; }
+  .rules-heading { font-size: 2.2rem; margin: 10px 0 28px; }
+  .rules-list { display: flex; flex-direction: column; gap: 12px; padding-left: 22px; color: var(--muted); }
+  .rules-list li { list-style: disc; }
+  .rules-contact { margin-top: 32px; font-size: 0.98rem; }
+  .rules-whatsapp { color: var(--accent-dk); font-weight: 500; margin-left: 6px; border-bottom: 1px solid var(--accent-dk); }
+
+  /* CTA */
+  .cta-section { position: relative; padding: 140px 32px; text-align: center; background: var(--accent-dk); overflow: hidden; }
+  .cta-content { position: relative; z-index: 1; color: var(--white); display: flex; flex-direction: column; align-items: center; gap: 26px; }
+  .cta-content h2 { font-size: clamp(2rem, 4vw, 2.8rem); max-width: 20ch; }
+  .cta-buttons { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+
+  @media (max-width: 860px) {
+    .intro { padding: 56px 0; }
+    .stat { padding: 0 24px; }
+    .split-inner { grid-template-columns: 1fr; gap: 36px; }
+    .amenities, .experience, .location, .rules, .cta-section { padding-left: 20px; padding-right: 20px; }
+    .rooms-grid, .amenities-grid { grid-template-columns: 1fr 1fr; }
+    .experience-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 560px) {
+    .rooms-grid, .amenities-grid { grid-template-columns: 1fr; }
+    .intro-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+    .stat { padding: 0; border-left: none; }
+  }
+</style>

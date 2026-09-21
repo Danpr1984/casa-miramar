@@ -27,7 +27,7 @@ const t = {
       { href: "#amenities", label: "Amenities" },
       { href: "#location", label: "Location" },
     ],
-    cta: "Book Now",
+    cta: "Book",
   },
 }[lang];
 ---
@@ -73,7 +73,7 @@ const t = {
     height: 76px;
   }
   .nav-logo {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Fraunces', serif;
     font-size: 1.5rem;
     font-weight: 600;
     letter-spacing: 0.02em;
@@ -95,15 +95,19 @@ const t = {
     gap: 20px;
   }
   .lang-switch {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    padding: 0 16px;
     font-size: 0.8rem;
     letter-spacing: 0.05em;
     border: 1px solid var(--border);
-    padding: 6px 12px;
     border-radius: 999px;
     transition: all 0.2s;
   }
   .lang-switch:hover { border-color: var(--accent); color: var(--accent); }
-  .nav-cta { padding: 10px 22px; font-size: 0.78rem; }
+  .nav-cta { height: 40px; padding: 0 22px; font-size: 0.78rem; }
   .nav-toggle {
     display: none;
     flex-direction: column;

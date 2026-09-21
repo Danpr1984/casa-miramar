@@ -20,14 +20,14 @@ const { title, description, lang } = Astro.props;
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <style is:global>
-      @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Work+Sans:wght@300;400;500;600&display=swap');
 
       :root {
         --bg-main:   #FAFAF7;   /* blanco cálido — fondo principal */
         --bg-sand:   #F2EFE6;   /* arena — secciones alternas */
         --bg-card:   #FFFFFF;
-        --accent:    #5C6B47;   /* oliva/sage — labels, acentos, checkmarks */
-        --accent-dk: #3D4D2E;   /* oliva oscuro — hover */
+        --accent:    #B5562F;   /* terracota/arcilla — labels, acentos, checkmarks */
+        --accent-dk: #7C3A1D;   /* terracota oscuro — hover */
         --text:      #1C1C1C;   /* carbón oscuro */
         --muted:     #686868;   /* gris medio — body text */
         --border:    #E3DDD0;   /* borde cálido */
@@ -39,7 +39,7 @@ const { title, description, lang } = Astro.props;
       html { scroll-behavior: smooth; }
 
       body {
-        font-family: 'Jost', 'Inter', sans-serif;
+        font-family: 'Work Sans', 'Inter', sans-serif;
         font-weight: 300;
         color: var(--text);
         background: var(--bg-main);
@@ -48,8 +48,9 @@ const { title, description, lang } = Astro.props;
       }
 
       h1, h2, h3 {
-        font-family: 'Cormorant Garamond', Georgia, serif;
+        font-family: 'Fraunces', Georgia, serif;
         font-weight: 500;
+        letter-spacing: -0.01em;
         line-height: 1.15;
       }
 
@@ -63,7 +64,7 @@ const { title, description, lang } = Astro.props;
       }
 
       .section-label {
-        font-family: 'Jost', sans-serif;
+        font-family: 'Work Sans', sans-serif;
         font-weight: 500;
         font-size: 0.78rem;
         letter-spacing: 0.14em;
@@ -79,7 +80,7 @@ const { title, description, lang } = Astro.props;
         gap: 8px;
         padding: 14px 30px;
         border-radius: 999px;
-        font-family: 'Jost', sans-serif;
+        font-family: 'Work Sans', sans-serif;
         font-size: 0.85rem;
         letter-spacing: 0.06em;
         text-transform: uppercase;
@@ -101,6 +102,13 @@ const { title, description, lang } = Astro.props;
         color: var(--white);
       }
       .btn-outline:hover { background: rgba(255,255,255,0.15); }
+
+      .btn-white {
+        background: var(--white);
+        border-color: var(--white);
+        color: var(--accent-dk);
+      }
+      .btn-white:hover { background: var(--bg-sand); }
 
       @media (max-width: 860px) {
         .container { padding: 0 20px; }
