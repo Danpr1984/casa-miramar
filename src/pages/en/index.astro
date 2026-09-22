@@ -14,7 +14,7 @@ import imgHero from "../../assets/images/hero-miramar.jpg";
 const content = {
   hero: {
     title: "Your home by the sea",
-    subtitle: "León, Nicaragua",
+    subtitle: "Puerto Sandino, Nicaragua",
     cta: "Check availability",
     ctaSecondary: "Discover the house",
   },
@@ -280,10 +280,10 @@ const content = {
     <div class="cta-content container">
       <h2>{content.ctaSection.heading}</h2>
       <div class="cta-buttons">
-        <a href={content.rules.whatsappLink} target="_blank" rel="noopener" class="btn btn-white">
+        <a href={content.rules.whatsappLink} target="_blank" rel="noopener" class="btn btn-primary">
           {content.ctaSection.reserveButton}
         </a>
-        <a href={content.rules.whatsappLink} target="_blank" rel="noopener" class="btn btn-outline">
+        <a href={content.rules.whatsappLink} target="_blank" rel="noopener" class="btn btn-outline-dark">
           {content.ctaSection.whatsappButton}
         </a>
       </div>
@@ -322,15 +322,15 @@ const content = {
   }
 
   /* INTRO */
-  .intro { padding: 72px 0; background: var(--accent-dk); }
+  .intro { padding: 72px 0; background: #EDE4D3; }
   .intro-stats { display: flex; justify-content: center; flex-wrap: wrap; }
   .stat {
     display: flex; flex-direction: column; align-items: center; gap: 6px;
     padding: 0 56px; border-left: 1px solid rgba(255,255,255,0.25);
   }
   .stat:first-child { border-left: none; }
-  .stat-value { font-family: 'Fraunces', serif; font-size: 3rem; font-weight: 600; color: var(--white); }
-  .stat-label { font-size: 0.9rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--bg-sand); opacity: 0.85; }
+  .stat-value { font-family: 'Fraunces', serif; font-size: 3rem; font-weight: 600; color: var(--accent-dk); }
+  .stat-label { font-size: 0.9rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); opacity: 0.85; }
 
   /* SPLIT */
   .split { background: var(--white); padding: 96px 0; }
@@ -392,8 +392,8 @@ const content = {
   .rules-whatsapp { color: var(--accent-dk); font-weight: 500; margin-left: 6px; border-bottom: 1px solid var(--accent-dk); }
 
   /* CTA */
-  .cta-section { position: relative; padding: 140px 32px; text-align: center; background: var(--accent-dk); overflow: hidden; }
-  .cta-content { position: relative; z-index: 1; color: var(--white); display: flex; flex-direction: column; align-items: center; gap: 26px; }
+  .cta-section { position: relative; padding: 140px 32px; text-align: center; background: #EDE4D3; overflow: hidden; }
+  .cta-content { position: relative; z-index: 1; color: var(--text); display: flex; flex-direction: column; align-items: center; gap: 26px; }
   .cta-content h2 { font-size: clamp(2rem, 4vw, 2.8rem); max-width: 20ch; }
   .cta-buttons { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
 

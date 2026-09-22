@@ -111,6 +111,13 @@ const { title, description, lang } = Astro.props;
       }
       .btn-white:hover { background: var(--bg-sand); }
 
+      .btn-outline-dark {
+        background: transparent;
+        border-color: var(--accent-dk);
+        color: var(--accent-dk);
+      }
+      .btn-outline-dark:hover { background: rgba(124,58,29,0.08); }
+
       @media (max-width: 860px) {
         .container { padding: 0 20px; }
       }
