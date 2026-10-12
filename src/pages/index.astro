@@ -107,6 +107,16 @@ const content = {
       { src: "/images/miramar/exp-zona.jpg", caption: "La zona" },
     ],
   },
+  surf: {
+    label: "Surf Camp",
+    heading: "Olas, atardeceres y surf",
+    text: "Las olas del Pacífico nicaragüense están frente a la casa. Escríbenos para coordinar tu experiencia de surf.",
+    photos: [
+      { src: "/images/miramar/surf-1.jpg", caption: "Atardecer en la orilla" },
+      { src: "/images/miramar/surf-2.jpg", caption: "Surf al atardecer" },
+      { src: "/images/miramar/surf-3.jpg", caption: "Una buena ola" },
+    ],
+  },
   location: {
     label: "Ubicación",
     heading: "Cerca de todo lo importante",
@@ -129,8 +139,8 @@ const content = {
       "Estadía mínima: 1 noche",
     ],
     contactText: "¿Dudas antes de reservar? Escríbenos por WhatsApp.",
-    whatsappNumber: "+505 0000 0000",
-    whatsappLink: "https://wa.me/50500000000",
+    whatsappNumber: "+505 7777 0612",
+    whatsappLink: "https://wa.me/50577770612",
   },
   ctaSection: {
     heading: "La escapada familiar que estabas buscando",
@@ -245,6 +255,21 @@ const content = {
     </div>
   </section>
 
+  <!-- SURF CAMP -->
+  <section class="experience surfcamp container" id="surfcamp">
+    <span class="section-label">{content.surf.label}</span>
+    <h2 class="experience-heading">{content.surf.heading}</h2>
+    <p class="surf-text">{content.surf.text}</p>
+    <div class="experience-grid">
+      {content.surf.photos.map((p) => (
+        <div class="experience-item">
+          <img src={p.src} alt={p.caption} loading="lazy" />
+          <span>{p.caption}</span>
+        </div>
+      ))}
+    </div>
+  </section>
+
   <!-- LOCATION -->
   <section class="location" id="ubicacion">
     <div class="container">
@@ -255,6 +280,17 @@ const content = {
           <span class="pill"><Icon name={pill.icon} size={18} />{pill.label}</span>
         ))}
       </div>
+      <div class="location-map">
+        <iframe
+          src="https://maps.google.com/maps?q=12.1605607,-86.7566826&z=15&output=embed"
+          title="Mapa de Casa Miramar en Puerto Sandino"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          allowfullscreen
+        ></iframe>
+      </div>
+      <p class="location-coords">Coordenadas: 12.1605607, -86.7566826</p>
+      <a href="https://www.google.com/maps/search/?api=1&query=12.1605607,-86.7566826" class="btn btn-primary" style="margin-top:18px" target="_blank" rel="noopener">Cómo llegar</a>
     </div>
   </section>
 
@@ -372,10 +408,17 @@ const content = {
     text-shadow: 0 1px 6px rgba(0,0,0,0.5);
   }
 
+  .surfcamp { padding-top: 0; }
+  .surf-text { max-width: 560px; margin: -24px auto 36px; color: var(--muted); }
+  .surfcamp .experience-item:first-child { grid-column: 1 / -1; aspect-ratio: 16/7; }
+
   /* LOCATION */
   .location { background: var(--bg-sand); padding: 88px 32px; text-align: center; }
   .location-heading { font-size: 2.2rem; margin: 10px 0 36px; }
   .location-pills { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+  .location-map { margin: 36px auto 0; max-width: 900px; border-radius: 14px; overflow: hidden; box-shadow: 0 2px 14px rgba(0,0,0,0.08); aspect-ratio: 16/8; }
+  .location-map iframe { width: 100%; height: 100%; border: 0; display: block; }
+  .location-coords { margin-top: 14px; font-size: 0.85rem; color: var(--muted); letter-spacing: 0.03em; }
   .pill {
     display: inline-flex; align-items: center; gap: 8px;
     border: 1px solid var(--border); background: var(--bg-card);
@@ -404,6 +447,8 @@ const content = {
     .amenities, .experience, .location, .rules, .cta-section { padding-left: 20px; padding-right: 20px; }
     .rooms-grid, .amenities-grid { grid-template-columns: 1fr 1fr; }
     .experience-grid { grid-template-columns: 1fr; }
+    .location-map { aspect-ratio: 4/3; }
+    .surfcamp .experience-item:first-child { aspect-ratio: 4/3; }
   }
   @media (max-width: 560px) {
     .rooms-grid, .amenities-grid { grid-template-columns: 1fr; }
